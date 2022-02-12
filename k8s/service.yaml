@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hostname-service
+spec:
+  # Expose the service on a static port on each node
+  # so that we can access the service from outside the cluster
+  type: NodePort
+
+  # When the node receives a request on the static port (30163)
+  # select pods with the label 'deploy' set to 'movie-pod'
+  # and forward the request to one of them
+  selector:
+    deploy: movie-pod
+
+  # Three types of ports for a service
+  ports:
+    # Static port assigned on each the node
+    - nodePort: 30163
+    # Port exposed internally in the cluster
+      port: 8080
+    # The container port to send requests to
+      targetPort: 8080
