@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Random;
+import java.util.Locale;
 
 import static java.lang.String.*;
 
@@ -47,9 +47,11 @@ public class MovieController {
     @PostMapping("/movie/save-random")
     public Movie same() {
         final var movie = new Movie();
-        movie.setName("Name-" + getRandomString());
-        movie.setAuthor("Autor-" + getRandomString());
-        movie.setRegisseur("Regisseur-" + getRandomString());
+        final var random = getRandomString().toUpperCase(Locale.ROOT);
+        movie.setName("Name-" + random);
+        movie.setAuthor("Autor-" + random);
+        movie.setRegisseur("Regisseur-" + random);
+
         return this.movieService.save(movie);
     }
 

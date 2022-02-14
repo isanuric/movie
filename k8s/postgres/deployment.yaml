@@ -21,9 +21,11 @@ spec:
           envFrom:
             - configMapRef:
                 name: postgres-config
+          # Mount into Container
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb
+      # Mount into the POD (POD level)
       volumes:
         - name: postgredb
           persistentVolumeClaim:

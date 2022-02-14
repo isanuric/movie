@@ -14,10 +14,17 @@ spec:
     deploy: movie-pod
 
   # Three types of ports for a service
+#  ports:
+#    # Static port assigned on each the node
+#    - nodePort: 30163
+#    # Port exposed internally in the cluster
+#      port: 8080
+#    # The container port to send requests to
+#      targetPort: 8080
+
+  # Called from ingress
   ports:
-    # Static port assigned on each the node
-    - nodePort: 30163
-    # Port exposed internally in the cluster
-      port: 8080
-    # The container port to send requests to
+    - port: 80
       targetPort: 8080
+      protocol: TCP
+      name: http
