@@ -1,24 +1,15 @@
 # Movie API
 
-## Dependencies
+## Dependencies and required tools
 Docker, Kubectl, Minikube, Kustomization, Java11
 
 ## Quick Start in Kubernetes
+* Run bash script and follow commands  
+`$ bash ./start.sh`  
+* Test it (create some entities)  
+`$ for i in {1..5}; do curl -X POST localhost/movie/save-random; echo; done`
 
-* Start minikube  
-`$ minikube start`
-
-* Set docker to point to minikube  
-`$ eval $(minikube docker-env)`
-* Build docker image in minikube  
-`$  docker build --tag=movie:0.0.1-SNAPSHOT .
-`
-* Build and apply manifests using Kustomization  
-`$ kustomize build k8s/postgres | kubectl apply -f -`  
-`$ kustomize build k8s/movie | kubectl apply -f -   `
-* Get Portforwarding from minikube  
-`$ minikube service movie-service
-`
+For more details see start.sh 
 
 ## Quick Start Local
 * Initial postgres docker  

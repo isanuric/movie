@@ -8,19 +8,20 @@ spec:
   type: NodePort
 
   # When the node receives a request on the static port (30163)
-  # select pods with the label 'deploy' set to 'movie-pod'
-  # and forward the request to one of them
+  # selects pods with the label 'deploy:movie-pod'
+  # and forwards the request to one of them
   selector:
     deploy: movie-pod
 
+  # NodePort: direct connection from outside
   # Three types of ports for a service
-#  ports:
-#    # Static port assigned on each the node
-#    - nodePort: 30163
-#    # Port exposed internally in the cluster
-#      port: 8080
-#    # The container port to send requests to
-#      targetPort: 8080
+  #  ports:
+  #    # Static port assigned on each node
+  #    - nodePort: 30163
+  #    # Port exposed internally in the cluster
+  #      port: 8080
+  #    # The container port to send requests to
+  #      targetPort: 8080
 
   # Called from ingress
   ports:
