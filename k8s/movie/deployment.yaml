@@ -25,6 +25,20 @@ spec:
         - name: movie
           image: movie:0.0.1-SNAPSHOT
           imagePullPolicy: IfNotPresent
+          env:
+            - name: DB_PW
+              valueFrom:
+                secretKeyRef:
+                  name: movie-secret
+                  key: spring.datasource.password
           ports:
             - containerPort: 8080
+            #          volumeMounts:
+            #            - name: foo
+            #              mountPath: "/etc/foo"
+            #              readOnly: true
 
+#       volumes:
+#        - name: foo
+#          secret:
+#            secretName: movie-secret
