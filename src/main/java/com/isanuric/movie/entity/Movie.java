@@ -2,13 +2,11 @@ package com.isanuric.movie.entity;
 
 // import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "movie")
@@ -16,14 +14,22 @@ import javax.persistence.Table;
 // @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Movie {
 
-
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
     private String author;
     private String regisseur;
+
+    public Movie() {
+    }
+
+    public Movie(String name, String author, String regisseur) {
+        this.name = name;
+        this.author = author;
+        this.regisseur = regisseur;
+    }
 
     public long getId() {
         return id;

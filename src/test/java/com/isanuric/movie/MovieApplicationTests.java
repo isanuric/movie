@@ -1,13 +1,15 @@
 package com.isanuric.movie;
 
-import org.junit.jupiter.api.Test;
+import com.isanuric.movie.repository.MovieRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-class MovieApplicationTests {
+@ActiveProfiles("tests")
+public class MovieApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Autowired
+    public MovieRepository movieRepository;
 
 }
