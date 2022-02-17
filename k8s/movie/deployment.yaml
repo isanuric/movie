@@ -33,12 +33,3 @@ spec:
                   key: spring.datasource.password
           ports:
             - containerPort: 8080
-            #          volumeMounts:
-            #            - name: foo
-            #              mountPath: "/etc/foo"
-            #              readOnly: true
-
-#       volumes:
-#        - name: foo
-#          secret:
-#            secretName: movie-secret

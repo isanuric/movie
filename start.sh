@@ -13,15 +13,15 @@ eval $(minikube docker-env)
 
 
 # Build docker image in minikube
-if [[ $modus == "minikube-active" ]]; then
-  docker rmi -f movie:0.0.1-SNAPSHOT
-fi
+#if [[ $modus == "minikube-active" ]]; then
+#  docker rmi -f movie:0.0.1-SNAPSHOT
+#fi
 
 mvn clean install -DskipTests
 docker build --tag=movie:0.0.1-SNAPSHOT .
 
 
-# Build and apply manifests using Kustomization
+# Build and apply manifests
 if [[ $modus != "minikube-active" ]]; then
   kubectl apply -f k8s/movie/secret.yaml
 fi
@@ -38,6 +38,6 @@ if [[ $modus != "minikube-active" ]]; then
   minikube tunnel
 else
   echo
-  sleep 20
-  for i in {1..10}; do curl -X POST localhost/movie/save-random; echo; done
+  sleep 15
+  for i in {1..10}; do curl -X POST localhost/save-random; echo; done
 fi

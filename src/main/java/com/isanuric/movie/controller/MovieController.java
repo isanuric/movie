@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
-import static java.lang.String.*;
+import static java.lang.String.valueOf;
 
 @RestController
 public class MovieController {
 
-    private MovieService movieService;
-    private MovieRepository movieRepository;
+    private final MovieService movieService;
+    private final MovieRepository movieRepository;
 
     public MovieController(MovieService movieService, MovieRepository movieRepository) {
         this.movieService = movieService;
@@ -40,16 +42,31 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public Movie findById(@PathVariable Long id) {
-        return movieRepository.findById(id).get();
+    public Optional<Movie> findById(@PathVariable Long id) {
+        return movieRepository.findById(id);
     }
 
-    @PostMapping("/movie/save-random")
+    @GetMapping("/delete/{id}")
+    public void deleteById(@PathVariable Long id) {
+         movieRepository.deleteById(id);
+    }
+
+    @GetMapping("/{name}")
+    public List<Movie> getByName(@PathVariable String name) {
+        return movieRepository.findByName(name);
+    }
+
+    @GetMapping("/all")
+    public Iterable<Movie> getAll() {
+        return movieRepository.findAll();
+    }
+
+    @PostMapping("/save-random")
     public Movie same() {
         final var movie = new Movie();
         final var random = getRandomString().toUpperCase(Locale.ROOT);
         movie.setName("Name-" + random);
-        movie.setAuthor("Autor-" + random);
+        movie.setAuthor("Author-" + random);
         movie.setRegisseur("Regisseur-" + random);
 
         return this.movieService.save(movie);
