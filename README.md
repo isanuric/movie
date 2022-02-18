@@ -8,6 +8,8 @@ Maven, Java11, Docker, Kubectl, Minikube, Kustomization,
 `$ bash ./start.sh`  
 * Test it (create some entities)  
 `$ for i in {1..5}; do curl -X POST localhost/save-random; echo; done`
+* [REST API Documentation](http://localhost/swagger-ui.html)
+
 
 For more details see `/start.sh` 
 
@@ -18,4 +20,5 @@ For more details see `/start.sh`
 `$ docker exec -it my-postgres psql -U postgres` (optional: psql into db)  
 `$ mvn spring-boot:run -Plocal`
 * Test it (create some entities)  
-`$ for i in {1..5}; do curl -X POST localhost:8080/save-random; echo; done`
+`$ for i in {1..5}; do curl -X POST localhost:8080/save-random; echo; done`  
+* [REST API Documentation](http://localhost:8080/swagger-ui.html)  
