@@ -10,7 +10,14 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends CrudRepository<Movie, Long> {
 
+    Movie findById(final long id);
+
     List<Movie> findByName(final String name);
 
-    Movie findById(final long id);
+    List<Movie> findByAuthor(final String author);
+
+    List<Movie> findByRegisseur(String regisseur);
+
+    Movie save(Movie movie);
+
 }

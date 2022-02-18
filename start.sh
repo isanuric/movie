@@ -7,29 +7,20 @@ if [[ $modus != "minikube-active" ]]; then
   minikube start
 fi
 
-
 # Set docker to point to minikube
 eval $(minikube docker-env)
 
-
-# Build docker image in minikube
-#if [[ $modus == "minikube-active" ]]; then
-#  docker rmi -f movie:0.0.1-SNAPSHOT
-#fi
-
-mvn clean install -DskipTests
+# Docker
+mvn clean install
 docker build --tag=movie:0.0.1-SNAPSHOT .
-
 
 # Build and apply manifests
 if [[ $modus != "minikube-active" ]]; then
   kubectl apply -f k8s/movie/secret.yaml
 fi
-
 kubectl apply -f k8s/ingress/ingress.yaml
 kustomize build k8s/postgres | kubectl apply -f -
 kustomize build k8s/movie | kubectl apply -f -
-
 
 # Enable ingress addon for minikube
 if [[ $modus != "minikube-active" ]]; then

@@ -1,7 +1,7 @@
 # Movie API
 
 ## Dependencies and required tools
-Docker, Kubectl, Minikube, Kustomization, Java11
+Maven, Java11, Docker, Kubectl, Minikube, Kustomization, 
 
 ## Quick Start in Kubernetes
 * Run bash script and follow commands  
