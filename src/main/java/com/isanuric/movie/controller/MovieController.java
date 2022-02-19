@@ -3,18 +3,19 @@ package com.isanuric.movie.controller;
 import com.isanuric.movie.entity.Movie;
 import com.isanuric.movie.repository.MovieRepository;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 
 import static java.lang.String.valueOf;
 
@@ -41,8 +42,9 @@ public class MovieController {
     }
 
     @GetMapping("/id/{id}")
-    public Optional<Movie> findById(@PathVariable Long id) {
-        return movieRepository.findById(id);
+    public Movie findById(@PathVariable Long id) {
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/id/delete/{id}")
