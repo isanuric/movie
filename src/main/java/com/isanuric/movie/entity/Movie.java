@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "movie")
@@ -18,8 +19,13 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty(message="Movie's 'name' cannot be null")
     private String name;
+
+    @NotEmpty(message="Movie's 'author' cannot be null")
     private String author;
+
+    @NotEmpty(message="Movie's 'regisseur' cannot be null")
     private String regisseur;
 
     public Movie() {
