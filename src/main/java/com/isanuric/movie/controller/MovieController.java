@@ -3,12 +3,15 @@ package com.isanuric.movie.controller;
 import com.isanuric.movie.entity.Movie;
 import com.isanuric.movie.exception.MovieNotFoundException;
 import com.isanuric.movie.repository.MovieRepository;
+import com.isanuric.movie.service.PdfService;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -23,9 +26,11 @@ import static java.lang.String.valueOf;
 public class MovieController {
 
     private final MovieRepository movieRepository;
+    private final PdfService pdfService;
 
-    public MovieController(MovieRepository movieRepository) {
+    public MovieController(MovieRepository movieRepository, PdfService pdfService) {
         this.movieRepository = movieRepository;
+        this.pdfService = pdfService;
     }
 
     @GetMapping("/")
@@ -73,17 +78,22 @@ public class MovieController {
     }
 
     @PostMapping("/movie")
-    // public Movie create(@ModelAttribute Movie movie) {
     public Movie create(@RequestBody @Valid Movie movie) {
         return this.movieRepository.save(movie);
     }
 
-    @PostMapping("/create-random")
-    public Movie createRandom() {
-        final var random = getRandomString().toUpperCase(Locale.ROOT);
-        final var movie = new Movie("Name" + random, "Author" + random, "Regisseur" + random);
 
-        return this.movieRepository.save(movie);
+    @PostMapping("/movie-string")
+    public Mono<String> getTextString() {
+        return pdfService.getTest();
+    }
+
+    // TODO: 21.02.22
+    @PostMapping("/movie-pdf")
+    public Mono<InputStreamResource> createMoviePdf() {
+
+        final Mono<InputStreamResource> pdf = pdfService.getPdf();
+        return pdf;
     }
 
     private String getRandomString() {

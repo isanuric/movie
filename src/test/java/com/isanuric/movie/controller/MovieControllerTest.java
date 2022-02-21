@@ -1,16 +1,19 @@
 package com.isanuric.movie.controller;
 
 import com.isanuric.movie.MovieApplicationTests;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.http.MediaType;
 
+// use @BeforeAll and @AfterAll for non-static methods.
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MovieControllerTest extends MovieApplicationTests {
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
         webTestClient.post()
-                .uri("/create")
+                .uri("/movie")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("{\"name\": \"AAA\", \"author\": \"BBB\", \"regisseur\": \"CCC\"}")
                 .exchange()
@@ -19,7 +22,7 @@ class MovieControllerTest extends MovieApplicationTests {
     }
 
     @Test
-    void findById() throws InterruptedException {
+    void findById() {
         webTestClient.get()
                 .uri("/id/1")
                 .exchange()

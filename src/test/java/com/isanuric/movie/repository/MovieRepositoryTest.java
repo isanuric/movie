@@ -9,6 +9,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// @DataJpaTest will disable full auto-configuration and instead apply only configuration
+// relevant to JPA tests. By default, it will use an embedded, in-memory H2 database instead of
+// the one declared in the configuration file.
+// By default, tests using @DataJpaTest are transactional and roll back at the end of each test.
 @DataJpaTest
 class MovieRepositoryTest {
 
