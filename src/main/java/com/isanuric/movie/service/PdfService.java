@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -32,5 +33,11 @@ public class PdfService {
 
     public Mono<InputStreamResource> getPdf() {
         return null;
+    }
+
+    void fluxValues() {
+        Flux<String> stringFlux = Flux.just("1", "2", "3", "4");
+        stringFlux.log()
+                .subscribe(System.out::println);
     }
 }
